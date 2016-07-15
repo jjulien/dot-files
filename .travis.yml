@@ -1,4 +1,4 @@
 image: centos:7
 test_build:
  script:
-   - echo "hello from master"
+   - echo "hello from master "
