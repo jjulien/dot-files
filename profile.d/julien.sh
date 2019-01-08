@@ -12,3 +12,7 @@ alias cdm='cd /var/spool/mail'
 alias cdl='cd /var/log'
 alias suroot="sudo su -"
 alias vi='vim'
+
+export HISTTIMEFORMAT="%m/%d/%y %T "
+export HISTSIZE=1000000
+export HISTFILESIZE=1000000
