@@ -1,0 +1,35 @@
+check_git() {
+  if git status >/dev/null 2>&1; then
+    echo -e "\033[32m(git: $(git branch|grep ^\*|awk '{print $2}'))\033[0m";
+  fi
+}
+
+check_terraform() {
+  if [[ -d .terraform ]]; then
+    if [[ -f .terraform/environment ]]; then
+      TE=$(cat .terraform/environment);
+    else
+      TE=default
+    fi
+    echo -e "\033[36m(terraform: $TE)\033[0m"
+  fi
+}
+
+check_proxy() {
+  proxies=$(env |grep -i -E https?_proxy | wc -l)
+  if [[ $proxies -gt 0 ]]; then
+    echo -e "\033[33m(proxy on)\033[0m"
+  fi
+}
+
+check_all() {
+  p=$(check_proxy)
+  t=$(check_terraform)
+  g=$(check_git)
+  if [[ -n $p || -n $t || -n $g ]]; then
+    things=$(echo "$p $t $g" | sed 's/^ *//' | sed 's/ *$//')
+  fi
+  echo -e "$things\n\r"
+}
+
+export PS1='\n$(check_all)\u@\h [\w]\n\$'

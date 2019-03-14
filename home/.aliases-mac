@@ -1,0 +1,3 @@
+alias calc="open /Applications/Calculator.app"
+alias ij='open -a IntelliJ\ IDEA\ CE .'
+
